@@ -32,7 +32,7 @@ build-image:
 deps: setup
 	@echo "Ensuring Dependencies..."
 	$Q go env
-	$Q dep ensure
+	$Q go mod tidy && go mod verify && go mod vendor
 
 clean:
 	@echo "Clean..."
@@ -40,7 +40,6 @@ clean:
 
 setup: clean
 	@echo "Setup..."
-	go get -u github.com/golang/dep/cmd/dep
 
 authors:
 	$Q git log --all --format='%aN <%cE>' | sort -u  | sed -n '/github/!p' > GITAUTHORS
